@@ -9,12 +9,14 @@
 <body>
     
     <div id="root"></div>
+    <div id="root-01"></div>
 
 
     <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script>
+    <script type="text/babel">
+        // 基础语句
         const hello = React.createElement( 'div', {
             title : "一个 React 元素",
             onClick : () => console.info(this)
@@ -22,6 +24,29 @@
         // return hello ( 'div', {}, 'Hello');
         ReactDOM.render( hello, document.getElementById('root') );
         // ReactDOM.render( hello, document.getElementById('root') );
+
+        // 组件编写
+        // 函数组件
+
+
+        // 类组件
+        const nowData = {
+            name : 'huang',
+            age : 19
+        };
+        class FoxDivTemp extends React.Component {
+            constructor ( props ) {
+                super( props );
+                this.name = '组件'
+                console.info( props )
+            }
+
+            render () {
+                return <div> { this.name } </div> ;
+            }
+        }
+
+        ReactDOM.render( <FoxDivTemp title="就是这样" data= { nowData } />, document.getElementById('root-01') );
     
     </script>
     <script>
