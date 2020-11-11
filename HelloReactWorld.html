@@ -25,32 +25,87 @@
         ReactDOM.render( hello, document.getElementById('root') );
         // ReactDOM.render( hello, document.getElementById('root') );
 
-        // 组件编写
+        // React 组件
+
         // 函数组件
+        // 在原生 JavaScript 中
 
-
-        // 类组件
         const nowData = {
             name : 'huang',
-            age : 19
+            age : 19,
+            list : [
+                {name:'标签一'},
+                {name:'标签二'},
+                {name:'标签三'},
+                {name: 1 }
+            ]
         };
+
+        function WelFunComp ( props ) {
+            console.info( 'Wel 组件：', props );
+            
+                const arrList = props.data.list.map( item => {
+                    return <li> {item.name} </li>
+                } );
+            
+            
+            return (
+                <div>
+                    <ul onClick = {testOneClick} >
+                       { arrList }
+                    </ul>
+                </div>
+            )
+        };
+
+        // 类组件
+
+        // 测试点击事件
+        function testOneClick () {
+            nowData.list[3].name ++;
+            ReactDOM.render( <FoxDivTemp title="就是这样" data = { nowData } />, document.getElementById('root-01') );
+        }
+        
+        // 类组件 FoxDivTemp
         class FoxDivTemp extends React.Component {
             constructor ( props ) {
                 super( props );
                 this.name = '组件'
+                this.state = {
+                    value : 1
+                }
                 console.info( props )
             }
 
             render () {
-                return <div> { this.name } </div> ;
+                return (
+                    <div onClick = { this.checkNum }> 
+                        { this.name + " : " + this.state.value } 
+                        <WelFunComp data = { nowData } /> 
+                    </div> 
+                );
+            }
+
+            checkNum = () => {
+                console.info('check方法执行',this.state.value);
+                // this.age.value ++;
+                this.setState( {
+                    value : this.state.value + 1
+                } )
             }
         }
 
-        ReactDOM.render( <FoxDivTemp title="就是这样" data= { nowData } />, document.getElementById('root-01') );
+        
+        ReactDOM.render( <FoxDivTemp title="就是这样" data = { nowData } />, document.getElementById('root-01') );
     
     </script>
+
+    <!-- 原生 JavaScript 语法测试 -->
     <script>
-        
+        function BigTap01 ( name ) { return { name : name} };
+        function BigTap02 ( name ) { this.name = name; }
+        const obj001 = new BigTap01( '第一测试' );
+        const obj002 = new BigTap01( '第二测试' );
     </script>
 </body>
 </html>
